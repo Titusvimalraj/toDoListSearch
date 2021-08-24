@@ -1,42 +1,43 @@
-import dbConnect from '../../../lib/dbConnect'
-import Todo from '../../../models/Todo'
+import dbConnect from "../../../lib/dbConnect";
+import Todo from "../../../models/Todo";
 
 export default async function handler(req, res) {
-  const { method } = req
+  const { method } = req;
 
-  await dbConnect()
+  await dbConnect();
 
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
         const { search } = req.query;
-        let Todos
-        if(search != ""){/* find all the data in our database */
-          Todos = await Todo.find( 
-            { $text : { $search : `${req.query.search}`}},
-            { score : {$meta : "textScore"}},
+        let Todos;
+        if (search != "") {
+          /* find all the data in our database */
+          Todos = await Todo.find(
+            { $text: { $search: `${req.query.search}` } },
+            { score: { $meta: "textScore" } },
             { lean: true }
-          ).sort({ score : { $meta : 'textScore'}}); 
-        }else{
-          Todos = await Todo.find({}); 
-        } 
-        res.status(200).json({ success: true, data: Todos })
+          ).sort({ score: { $meta: "textScore" } });
+        } else {
+          Todos = await Todo.find({});
+        }
+        res.status(200).json({ success: true, data: Todos });
       } catch (error) {
-        res.status(400).json({ success: false })
+        res.status(400).json({ success: false });
       }
-      break
-    case 'POST':
+      break;
+    case "POST":
       try {
         const todo = await Todo.create(
           req.body
-        ) /* create a new model in the database */
-        res.status(201).json({ success: true, data: todo })
+        ); /* create a new model in the database */
+        res.status(201).json({ success: true, data: todo });
       } catch (error) {
-        res.status(400).json({ success: false })
+        res.status(400).json({ success: false });
       }
-      break
+      break;
     default:
-      res.status(400).json({ success: false })
-      break
+      res.status(400).json({ success: false });
+      break;
   }
 }
