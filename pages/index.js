@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Head from "next/head";
 import TodoList from "../components/TodoList/TodoList";
 import styles from "../styles/Home.module.css";
