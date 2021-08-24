@@ -135,7 +135,7 @@ export default function Home() {
         .pipe(
           map((s) => s.trim()),
           distinctUntilChanged(),
-          filter((s) => s.length >= 3),
+          filter((s) => s.length >= 2),
           debounceTime(200),
           switchMap((term) =>
             merge(
