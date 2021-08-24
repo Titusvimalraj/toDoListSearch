@@ -154,8 +154,7 @@ export default function Home() {
     }
   }, [subject]);
 
-  const hangleSearch = e => {
-    console.log("hangleSearch", e);
+  const handleSearch = e => {
     const term = e.target.value || "";
     if(subject && term!="") {
       return subject.next(term);
@@ -201,7 +200,7 @@ export default function Home() {
             >
               
                <Grid item xs>
-              <Grid container><TextField inputRef={searchInput} onChange={hangleSearch} label="Search Todos" variant="outlined" /></Grid>
+              <Grid container><TextField inputRef={searchInput} onChange={handleSearch} label="Search Todos" variant="outlined" /></Grid>
               
               </Grid>
             </Grid>
